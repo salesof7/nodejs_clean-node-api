@@ -3,5 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "salesof7 <jpsaless2002@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^17.3.0",
+    "@commitlint/config-conventional": "^17.3.0",
+    "husky": "^8.0.2"
+  }
 }
