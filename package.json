@@ -4,6 +4,10 @@
   "main": "index.js",
   "author": "salesof7 <jpsaless2002@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "jest --passWithNoTests",
+    "test:staged": "jest --passWithNoTests"
+  },
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.3.0",
@@ -26,9 +30,5 @@
   "dependencies": {
     "@types/node": "^18.11.15",
     "typescript": "*"
-  },
-  "scripts": {
-    "test": "jest",
-    "test:staged": "jest"
   }
 }
