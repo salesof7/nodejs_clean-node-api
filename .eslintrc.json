@@ -13,6 +13,7 @@
   "plugins": ["prettier", "json"],
   "rules": {
     "prettier/prettier": "error",
-    "@typescript-eslint/strict-boolean-expressions": "off"
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/method-signature-style": "off"
   }
 }
