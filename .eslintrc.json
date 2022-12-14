@@ -12,6 +12,7 @@
   },
   "plugins": ["prettier", "json"],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "@typescript-eslint/strict-boolean-expressions": "off"
   }
 }
