@@ -1,13 +1,13 @@
-import { LoadAccountByEmailRepository } from "../../protocols/db/load-account-by-email-repository";
-import { AccountModel } from "../add-account/db-add-account-protocols";
 import { DbAuthentication } from "./db-authentication";
 import {
+  AccountModel,
   Authentication,
   AuthenticationModel,
-} from "../../../domain/usecases/authentication";
-import { HashComparer } from "../../protocols/cryptograph/hash-comparer";
-import { TokenGenerator } from "../../protocols/cryptograph/token-generator";
-import { UpdateAccessTokenRepository } from "../../protocols/db/update-access-token-repository";
+  HashComparer,
+  LoadAccountByEmailRepository,
+  TokenGenerator,
+  UpdateAccessTokenRepository,
+} from "./db-authentication-protocols";
 
 const makeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub
