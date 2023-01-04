@@ -7,9 +7,13 @@ jest.mock("jsonwebtoken", () => ({
   },
 }));
 
+const makeSut = (): JwtAdapter => {
+  return new JwtAdapter("secret");
+};
+
 describe("Jwt Adapter", () => {
   test("should call sign with correct values", async () => {
-    const sut = new JwtAdapter("secret");
+    const sut = makeSut();
 
     const signSpy = jest.spyOn(jwt, "sign");
 
@@ -24,7 +28,7 @@ describe("Jwt Adapter", () => {
   });
 
   test("should throw if sign throws", async () => {
-    const sut = new JwtAdapter("secret");
+    const sut = makeSut();
 
     const signSpy = jest.spyOn(jwt, "sign") as unknown as jest.Mock<
       ReturnType<(key: Error) => Promise<Error>>,
