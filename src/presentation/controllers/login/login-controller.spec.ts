@@ -9,9 +9,9 @@ import {
   HttpRequest,
   Authentication,
   AuthenticationModel,
-} from "./login-protocols";
-import { LoginController } from "./login";
-import { Validation } from "../signup/signup-protocols";
+} from "./login-controller-protocols";
+import { LoginController } from "./login-controller";
+import { Validation } from "../signup/signup-controller-protocols";
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
