@@ -9,7 +9,7 @@
     "build": "rimraf dist && tsc",
     "debug": "node --inspect=0.0.0.0:9222 -nolazy dist/main/server.js",
     "up": "yarn build && docker compose up -d",
-    "stop": "docker compose down",
+    "down": "docker compose down",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand --detectOpenHandles",
     "test:verbose": "jest --passWithNoTests --runInBand",
     "test:unit": "yarn test --watch -c jest-unit-config.js",
