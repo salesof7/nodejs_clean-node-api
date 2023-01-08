@@ -7,7 +7,7 @@ import app from "../config/app";
 let accountCollection: Collection;
 describe("Login Routes", () => {
   beforeAll(async () => {
-    await MongoHelper.connect(process.env.MONGO_URL);
+    await MongoHelper.connect(process.env.MONGO_URL as unknown as string);
   });
 
   afterAll(async () => {

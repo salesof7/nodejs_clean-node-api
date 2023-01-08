@@ -5,7 +5,7 @@ import { AccountMongoRepository } from "./account-mongo-repository";
 let accountCollection: Collection;
 describe("Account Mongo Repository", () => {
   beforeAll(async () => {
-    await MongoHelper.connect(process.env.MONGO_URL);
+    await MongoHelper.connect(process.env.MONGO_URL as unknown as string);
   });
 
   afterAll(async () => {
