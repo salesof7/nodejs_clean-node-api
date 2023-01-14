@@ -26,7 +26,7 @@ describe("Jwt Adapter", () => {
     });
 
     test("should return a token on sign success", async () => {
-      const sut = new JwtAdapter("secret");
+      const sut = makeSut();
       const accessToken = await sut.encrypt("any_id");
       expect(accessToken).toBe("any_token");
     });
@@ -56,6 +56,12 @@ describe("Jwt Adapter", () => {
 
       await sut.decrypt("any_token");
       expect(verifySpy).toHaveBeenCalledWith("any_token", "secret");
+    });
+
+    test("should return a value on verify success", async () => {
+      const sut = makeSut();
+      const value = await sut.decrypt("any_token");
+      expect(value).toBe("any_value");
     });
   });
 });
