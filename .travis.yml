@@ -1,6 +1,0 @@
-language: node_js
-node_js:
-  - 19
-script:
-  - eslint 'src/**'
-  - yarn run test:coveralls
