@@ -3,13 +3,13 @@ import {
   EmailInUseError,
   MissingParamError,
   ServerError,
-} from "../../../errors";
+} from "@/presentation/errors";
 import {
   badRequest,
   forbidden,
   ok,
   serverError,
-} from "../../../helpers/http/http-helper";
+} from "@/presentation/helpers/http/http-helper";
 import {
   AddAccount,
   AccountModel,

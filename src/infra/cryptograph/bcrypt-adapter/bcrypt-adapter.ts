@@ -1,7 +1,8 @@
-import { Hasher } from "../../../data/protocols/cryptograph/hasher";
+import { Hasher } from "@/data/protocols/cryptograph/hasher";
+import { HashComparer } from "@/data/protocols/cryptograph/hash-comparer";
 import bcrypt from "bcrypt";
 
-export class BcryptAdapter implements Hasher {
+export class BcryptAdapter implements Hasher, HashComparer {
   constructor(private readonly salt: number) {}
 
   async hash(value: string): Promise<string> {
