@@ -47,7 +47,7 @@ describe("Account Mongo Repository", () => {
   });
 
   describe("loadAll()", () => {
-    test("should return a survey on add success", async () => {
+    test("should load all surveys on success", async () => {
       await surveyCollection.insertMany([
         {
           question: "any_question",
