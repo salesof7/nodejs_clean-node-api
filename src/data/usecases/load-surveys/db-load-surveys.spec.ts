@@ -33,16 +33,18 @@ const makeFakeSurveys = (): SurveyModel[] => {
 const makeLoadSurveysRepository = (): LoadSurveysRepository => {
   class LoadSurveysRepositoryStub implements LoadSurveysRepository {
     async loadAll(): Promise<SurveyModel[]> {
-      return await new Promise((resolve) => resolve(makeFakeSurveys()));
+      return await new Promise((resolve) => {
+        resolve(makeFakeSurveys());
+      });
     }
   }
   return new LoadSurveysRepositoryStub();
 };
 
-interface SutTypes {
+type SutTypes = {
   sut: DbLoadSurveys;
   loadSurveysRepositoryStub: LoadSurveysRepository;
-}
+};
 
 const makeSut = (): SutTypes => {
   const loadSurveysRepositoryStub = makeLoadSurveysRepository();
@@ -78,11 +80,11 @@ describe("DbLoadSurveys", () => {
   test("should throw if LoadSurveysRepository throws", async () => {
     const { sut, loadSurveysRepositoryStub } = makeSut();
 
-    jest
-      .spyOn(loadSurveysRepositoryStub, "loadAll")
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error()))
-      );
+    jest.spyOn(loadSurveysRepositoryStub, "loadAll").mockReturnValueOnce(
+      new Promise((resolve, reject) => {
+        reject(new Error());
+      })
+    );
 
     const promise = sut.load();
     await expect(promise).rejects.toThrow();

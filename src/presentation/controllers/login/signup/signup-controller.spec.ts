@@ -23,7 +23,9 @@ import {
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
     async add(account: AddAccountModel): Promise<AccountModel> {
-      return await new Promise((resolve) => resolve(makeFakeAccount()));
+      return await new Promise((resolve) => {
+        resolve(makeFakeAccount());
+      });
     }
   }
   return new AddAccountStub();
@@ -63,12 +65,12 @@ const makeFakeRequest = (): HttpRequest => ({
   },
 });
 
-interface SutTypes {
+type SutTypes = {
   sut: SignUpController;
   addAccountStub: AddAccount;
   validationStub: Validation;
   authenticationStub: Authentication;
-}
+};
 
 const makeSut = (): SutTypes => {
   const addAccountStub = makeAddAccount();
@@ -105,7 +107,9 @@ describe("SignUp Controller", () => {
     const { sut, addAccountStub } = makeSut();
 
     jest.spyOn(addAccountStub, "add").mockImplementationOnce(async () => {
-      return await new Promise((resolve, reject) => reject(new Error()));
+      return await new Promise((resolve, reject) => {
+        reject(new Error());
+      });
     });
 
     const httpResponse = await sut.handle(makeFakeRequest());
@@ -117,11 +121,11 @@ describe("SignUp Controller", () => {
   test("should return 403 if AddAccount returns null", async () => {
     const { sut, addAccountStub } = makeSut();
 
-    jest
-      .spyOn(addAccountStub, "add")
-      .mockReturnValueOnce(
-        new Promise((resolve) => resolve(null as unknown as AccountModel))
-      );
+    jest.spyOn(addAccountStub, "add").mockReturnValueOnce(
+      new Promise((resolve) => {
+        resolve(null as unknown as AccountModel);
+      })
+    );
 
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(forbidden(new EmailInUseError()));
@@ -171,11 +175,11 @@ describe("SignUp Controller", () => {
   test("should return 500 if Authentication throws", async () => {
     const { sut, authenticationStub } = makeSut();
 
-    jest
-      .spyOn(authenticationStub, "auth")
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error()))
-      );
+    jest.spyOn(authenticationStub, "auth").mockReturnValueOnce(
+      new Promise((resolve, reject) => {
+        reject(new Error());
+      })
+    );
 
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(serverError(new Error()));

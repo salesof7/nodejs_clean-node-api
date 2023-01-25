@@ -38,18 +38,20 @@ const makeValidation = (): Validation => {
 const makeAddSurvey = (): AddSurvey => {
   class AddSurveyStub implements AddSurvey {
     async add(data: AddSurveyModel): Promise<void> {
-      return await new Promise((resolve) => resolve());
+      await new Promise<void>((resolve) => {
+        resolve();
+      });
     }
   }
 
   return new AddSurveyStub();
 };
 
-interface SutTypes {
+type SutTypes = {
   sut: AddSurveyController;
   validationStub: Validation;
   addSurveyStub: AddSurvey;
-}
+};
 
 const makeSut = (): SutTypes => {
   const validationStub = makeValidation();
@@ -97,11 +99,11 @@ describe("AddSurvey Controller", () => {
   test("should return 500 if AddSurvey throws", async () => {
     const { sut, addSurveyStub } = makeSut();
 
-    jest
-      .spyOn(addSurveyStub, "add")
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error()))
-      );
+    jest.spyOn(addSurveyStub, "add").mockReturnValueOnce(
+      new Promise((resolve, reject) => {
+        reject(new Error());
+      })
+    );
 
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(serverError(new Error()));

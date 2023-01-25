@@ -38,11 +38,11 @@ const makeFakeRequest = (): HttpRequest => ({
   },
 });
 
-interface SutTypes {
+type SutTypes = {
   sut: LoginController;
   authenticationStub: Authentication;
   validationStub: Validation;
-}
+};
 
 const makeSut = (): SutTypes => {
   const authenticationStub = makeAuthentication();
@@ -71,11 +71,11 @@ describe("Login Controller", () => {
   test("should return 401 if invalid credentials are provided", async () => {
     const { sut, authenticationStub } = makeSut();
 
-    jest
-      .spyOn(authenticationStub, "auth")
-      .mockReturnValueOnce(
-        new Promise((resolve) => resolve(null as unknown as string))
-      );
+    jest.spyOn(authenticationStub, "auth").mockReturnValueOnce(
+      new Promise((resolve) => {
+        resolve(null as unknown as string);
+      })
+    );
 
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(unauthorized());
@@ -84,11 +84,11 @@ describe("Login Controller", () => {
   test("should return 500 if Authentication throws", async () => {
     const { sut, authenticationStub } = makeSut();
 
-    jest
-      .spyOn(authenticationStub, "auth")
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => reject(new Error()))
-      );
+    jest.spyOn(authenticationStub, "auth").mockReturnValueOnce(
+      new Promise((resolve, reject) => {
+        reject(new Error());
+      })
+    );
 
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(serverError(new Error()));
