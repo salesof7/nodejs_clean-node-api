@@ -1,18 +1,19 @@
 import { SaveSurveyResultController } from "./save-survey-result-controller";
+import { InvalidParamError } from "@/presentation/errors";
+import MockDate from "mockdate";
 import {
   HttpRequest,
   LoadSurveyById,
-  SurveyModel,
-  forbidden,
-  serverError,
-  InvalidParamError,
-} from "./save-survey-result-controller-protocols";
-import MockDate from "mockdate";
-import {
   SaveSurveyResult,
   SaveSurveyResultModel,
-} from "@/domain/usecases/survey-result/save-survey-result";
-import { SurveyResultModel } from "@/domain/models/survey-result";
+  SurveyResultModel,
+  SurveyModel,
+} from "./save-survey-result-controller-protocols";
+import {
+  forbidden,
+  ok,
+  serverError,
+} from "@/presentation/helpers/http/http-helper";
 
 const makeFakeRequest = (): HttpRequest => ({
   params: {
@@ -164,5 +165,11 @@ describe("SaveSurveyResultController", () => {
 
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(serverError(new Error()));
+  });
+
+  test("should return 500 if SaveSurveyResult throws", async () => {
+    const { sut } = makeSut();
+    const httpResponse = await sut.handle(makeFakeRequest());
+    expect(httpResponse).toEqual(ok(makeFakeSurveyResult()));
   });
 });
