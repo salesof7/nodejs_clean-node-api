@@ -5,6 +5,7 @@ import {
   SurveyResultModel,
 } from "./db-save-survey-result-protocols";
 import MockDate from "mockdate";
+import { throwError } from "@/domain/test";
 
 const makeFakeSurveyResult = (): SurveyResultModel => ({
   id: "any_id",
@@ -66,11 +67,9 @@ describe("DbSaveSurveyResult UseCase", () => {
   test("should throw if SaveSurveyResultRepository throws", async () => {
     const { sut, saveSurveyResultRepositoryStub } = makeSut();
 
-    jest.spyOn(saveSurveyResultRepositoryStub, "save").mockReturnValueOnce(
-      new Promise((resolve, reject) => {
-        reject(new Error());
-      })
-    );
+    jest
+      .spyOn(saveSurveyResultRepositoryStub, "save")
+      .mockImplementationOnce(throwError);
 
     const promise = sut.save(makeFakeSurveyResultData());
     await expect(promise).rejects.toThrow();
