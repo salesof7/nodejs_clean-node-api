@@ -13,7 +13,7 @@ import {
 import {
   AddAccount,
   AccountModel,
-  AddAccountModel,
+  AddAccountParams,
   HttpRequest,
   Validation,
   Authentication,
@@ -22,7 +22,7 @@ import {
 
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
-    async add(account: AddAccountModel): Promise<AccountModel> {
+    async add(account: AddAccountParams): Promise<AccountModel> {
       return await new Promise((resolve) => {
         resolve(makeFakeAccount());
       });
