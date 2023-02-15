@@ -17,7 +17,7 @@ import {
   HttpRequest,
   Validation,
   Authentication,
-  AuthenticationModel,
+  AuthenticationParams,
 } from "./signup-controller-protocols";
 
 const makeAddAccount = (): AddAccount => {
@@ -33,7 +33,7 @@ const makeAddAccount = (): AddAccount => {
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth(authentication: AuthenticationModel): Promise<string> {
+    async auth(authentication: AuthenticationParams): Promise<string> {
       return "any_token";
     }
   }
