@@ -7,7 +7,6 @@ import {
 import { mockAuthentication, throwError } from "@/domain/test";
 import { DbAuthentication } from "./db-authentication";
 import {
-  AccountModel,
   Authentication,
   HashComparer,
   LoadAccountByEmailRepository,
@@ -58,11 +57,7 @@ describe("DbAuthentication UseCase", () => {
 
     jest
       .spyOn(loadAccountByEmailRepositoryStub, "loadByEmail")
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => {
-          reject(new Error());
-        })
-      );
+      .mockReturnValueOnce(Promise.reject(new Error()));
 
     const promise = sut.auth(mockAuthentication());
     await expect(promise).rejects.toThrow();
@@ -73,11 +68,7 @@ describe("DbAuthentication UseCase", () => {
 
     jest
       .spyOn(loadAccountByEmailRepositoryStub, "loadByEmail")
-      .mockReturnValueOnce(
-        new Promise((resolve) => {
-          resolve(null as unknown as AccountModel);
-        })
-      );
+      .mockReturnValueOnce(Promise.resolve(null));
 
     const accessToken = await sut.auth(mockAuthentication());
     expect(accessToken).toBeNull();
@@ -104,11 +95,9 @@ describe("DbAuthentication UseCase", () => {
   test("should return null if HashComparer returns false", async () => {
     const { sut, hashComparerStub } = makeSut();
 
-    jest.spyOn(hashComparerStub, "compare").mockReturnValueOnce(
-      new Promise((resolve) => {
-        resolve(false);
-      })
-    );
+    jest
+      .spyOn(hashComparerStub, "compare")
+      .mockReturnValueOnce(Promise.resolve(false));
 
     const accessToken = await sut.auth(mockAuthentication());
     expect(accessToken).toBeNull();
@@ -155,11 +144,7 @@ describe("DbAuthentication UseCase", () => {
 
     jest
       .spyOn(updateAccessTokenRepositoryStub, "updateAccessToken")
-      .mockReturnValueOnce(
-        new Promise((resolve, reject) => {
-          reject(new Error());
-        })
-      );
+      .mockReturnValueOnce(Promise.reject(new Error()));
 
     const promise = sut.auth(mockAuthentication());
     await expect(promise).rejects.toThrow();

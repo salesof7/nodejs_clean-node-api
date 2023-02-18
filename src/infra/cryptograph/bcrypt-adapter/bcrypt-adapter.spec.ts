@@ -3,14 +3,10 @@ import bcrypt from "bcrypt";
 
 jest.mock("bcrypt", () => ({
   async hash(): Promise<string> {
-    return await new Promise((resolve) => {
-      resolve("hash");
-    });
+    return await Promise.resolve("hash");
   },
   async compare(): Promise<boolean> {
-    return await new Promise((resolve) => {
-      resolve(true);
-    });
+    return await Promise.resolve(true);
   },
 }));
 
@@ -42,11 +38,7 @@ describe("Bcrypt Adapter", () => {
         Parameters<(key: Error) => Promise<Error>>
       >;
 
-      hashSpy.mockReturnValueOnce(
-        new Promise((resolve, reject) => {
-          reject(new Error());
-        })
-      );
+      hashSpy.mockReturnValueOnce(Promise.reject(new Error()));
 
       const promise = sut.hash("any_value");
       await expect(promise).rejects.toThrow();
@@ -75,11 +67,7 @@ describe("Bcrypt Adapter", () => {
         Parameters<() => Promise<boolean>>
       >;
 
-      compareSpy.mockReturnValueOnce(
-        new Promise((resolve) => {
-          resolve(false);
-        })
-      );
+      compareSpy.mockReturnValueOnce(Promise.resolve(false));
 
       const isValid = await sut.compare("any_value", "any_hash");
       expect(isValid).toBe(false);
@@ -93,11 +81,7 @@ describe("Bcrypt Adapter", () => {
         Parameters<(key: Error) => Promise<Error>>
       >;
 
-      hashSpy.mockReturnValueOnce(
-        new Promise((resolve, reject) => {
-          reject(new Error());
-        })
-      );
+      hashSpy.mockReturnValueOnce(Promise.reject(new Error()));
 
       const promise = sut.compare("any_value", "any_hash");
       await expect(promise).rejects.toThrow();
