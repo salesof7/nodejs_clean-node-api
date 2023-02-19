@@ -3,15 +3,6 @@ export const surveyPath = {
     security: [{ apiKeyAuth: [] }],
     tags: ["Enquete"],
     summary: "API para listar todas as enquetes",
-    requestBody: {
-      content: {
-        "application/json": {
-          schema: {
-            $ref: "#/schemas/loginParams",
-          },
-        },
-      },
-    },
     responses: {
       200: {
         description: "Sucesso",
@@ -22,9 +13,6 @@ export const surveyPath = {
             },
           },
         },
-      },
-      400: {
-        $ref: "#/components/badRequest",
       },
       401: {
         $ref: "#/components/unauthorized",

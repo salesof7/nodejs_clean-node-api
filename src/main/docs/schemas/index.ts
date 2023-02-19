@@ -1,4 +1,5 @@
 export * from "./login-params-schema";
+export * from "./signup-params-schema";
 export * from "./account-schema";
 export * from "./error";
 export * from "./surveys-schema";
