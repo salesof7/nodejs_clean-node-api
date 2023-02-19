@@ -5,5 +5,7 @@ export * from "./error";
 export * from "./surveys-schema";
 export * from "./survey-answer-schema";
 export * from "./add-survey-params-schema";
+export * from "./save-survey-params-schema";
+export * from "./survey-result-schema";
 export * from "./survey-schema";
 export * from "./api-key-auth-schema";
